@@ -9,5 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //최성락 안드로이드 스튜디오에서 git연동 테스트 중입니다.
+        //박정민 안드로이드 스튜디오에서 git연동 테스트 중입니다.
     }
 }

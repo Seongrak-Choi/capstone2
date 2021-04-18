@@ -16,14 +16,17 @@
         android:textSize="30sp"/>
 
     <EditText
+        android:id="@+id/idText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="ID"
+        android:hint="E-mail"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:padding="10dp" />
 
     <EditText
+        android:id="@+id/passwdText"
+        android:inputType="textPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
@@ -32,14 +35,18 @@
         android:padding="10dp" />
 
     <EditText
+        android:id="@+id/passwdCheckText"
+        android:inputType="textPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="e-메일"
+        android:hint="비밀번호 확인"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp" />
 
+
     <Button
+        android:id="@+id/btn_signup"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

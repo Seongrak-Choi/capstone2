@@ -16,14 +16,17 @@
         android:textSize="30sp"/>
 
     <EditText
+        android:id="@+id/idText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="ID"
+        android:hint="E-mail"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:padding="10dp" />
 
     <EditText
+        android:id="@+id/passwdText"
+        android:inputType="textPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
@@ -32,6 +35,7 @@
         android:padding="10dp" />
 
     <Button
+        android:id="@+id/btn_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -58,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00ff0000"
-            android:textAlignment="center"
             android:text="회원가입"
             android:textSize="17sp"/>
 
@@ -67,7 +70,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:background="#00ff0000"
-            android:textAlignment="center"
             android:text="ID 찾기"
             android:textSize="17sp"/>
         <Button
@@ -75,7 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="#00ff0000"
-            android:textAlignment="center"
             android:text="비밀번호 찾기"
             android:textSize="17sp"/>
     </LinearLayout>

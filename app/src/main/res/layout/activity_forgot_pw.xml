@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:gravity="center"
-        android:text="회원가입"
+        android:text="비밀번호 찾기"
         android:textAlignment="center"
         android:textSize="30sp"/>
 
@@ -27,7 +27,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="비밀번호"
+        android:hint="e-메일"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
@@ -36,7 +36,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="e-메일"
+        android:hint="인증번호"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
@@ -47,5 +47,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
-        android:text="가입하기"/>
+        android:text="확인"/>
 </LinearLayout>

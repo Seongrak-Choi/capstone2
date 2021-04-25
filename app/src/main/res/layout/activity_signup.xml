@@ -12,8 +12,11 @@
         android:layout_height="150dp"
         android:gravity="center"
         android:text="회원가입"
+        android:background="#00BFFF"
         android:textAlignment="center"
-        android:textSize="30sp"/>
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textSize="38sp"/>
 
     <EditText
         android:id="@+id/idText"
@@ -23,6 +26,7 @@
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:padding="10dp"
+        android:background="@drawable/round"
         android:singleLine="true"/>
 
     <EditText
@@ -34,6 +38,7 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
+        android:background="@drawable/round"
         android:singleLine="true"/>
 
     <EditText
@@ -45,8 +50,8 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
+        android:background="@drawable/round"
         android:singleLine="true"/>
-
 
     <Button
         android:id="@+id/btn_signup"
@@ -54,5 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
+        android:background="#0040FF"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:text="가입하기"/>
 </LinearLayout>

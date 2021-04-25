@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     Button btn_login;
     Button btn_signupgo;
+    Button btn_forgot_pw;
     EditText idtext;
     EditText passwdtext;
     private FirebaseAuth mAuth;
@@ -47,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 checksign();
                 Log.e("클릭", "클릭");
+            }
+        });
+
+        btn_forgot_pw = findViewById(R.id.btn_forgot_pw);
+        btn_forgot_pw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, forgot_pw.class);
+                startActivity(intent);
             }
         });
     }
@@ -84,4 +94,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, signup.class);
         startActivity(intent);
     }
+
 }

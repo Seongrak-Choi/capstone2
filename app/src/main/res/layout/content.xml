@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="#00BFFF"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="도서관 콘텐츠"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textSize="45sp"/>
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="240dp"
+        android:hint="공지사항"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:background="@drawable/square"
+        android:singleLine="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="도서 검색"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="열람실 정보"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="이용 안내"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="게시판"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="게임"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="70dp"
+            android:background="#0040FF"
+            android:text="음악 및 영상"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    </LinearLayout>

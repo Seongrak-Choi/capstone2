@@ -16,9 +16,11 @@
         android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="#ffffff"
+        android:layout_marginBottom="100dp"
         android:textSize="37sp"/>
 
     <EditText
+        android:id="@+id/emailtext"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="e-메일"
@@ -28,17 +30,9 @@
         android:background="@drawable/round"
         android:singleLine="true"/>
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="인증번호"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:background="@drawable/round"
-        android:singleLine="true"/>
 
     <Button
+        android:id="@+id/btn_ok"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -47,5 +41,5 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="확인"/>
+        android:text="전송"/>
 </LinearLayout>

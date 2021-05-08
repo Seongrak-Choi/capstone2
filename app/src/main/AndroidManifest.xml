@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,12 @@
         android:theme="@style/AppTheme">
        <activity android:name=".signup"></activity>
         <activity android:name=".forgot_pw"></activity>
+        <activity android:name=".loginAfter"></activity>
+        <activity android:name=".WritePostActivity"></activity>
+        <activity android:name=".ContentsActivity"></activity>
+
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

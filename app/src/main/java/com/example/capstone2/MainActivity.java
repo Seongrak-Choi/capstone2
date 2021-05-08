@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         btn_signupgo = findViewById(R.id.btn_signup);
         btn_signupgo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(View v) { //회원가입 버튼을 클릭시 회원가입 화면으로 이동
                 startsignup();
                 Log.e("클릭", "클릭");
             }
@@ -70,13 +70,15 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                                // 로그인 성공 시 수행될 작업
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(MainActivity.this, "로그인 성공",
                                         Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, loginAfter.class);
+                                startActivity(intent);
                             } else {
-                                // If sign in fails, display a message to the user.
+                                // 로그인 실패할 시 수행될 작업
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
@@ -90,9 +92,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startsignup() {
+    @Override
+    public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
+        finish();
+    }
+
+    private void startsignup() {  //회원 가입 화면으로 이동하는 함수
         Intent intent = new Intent(this, signup.class);
         startActivity(intent);
     }
+
 
 }

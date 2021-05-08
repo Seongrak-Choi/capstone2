@@ -30,7 +30,6 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:padding="10dp"
-        android:background="@drawable/square"
         android:singleLine="true"/>
     </LinearLayout>
 

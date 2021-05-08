@@ -19,6 +19,13 @@
         android:layout_marginBottom="100dp"
         android:textSize="37sp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        android:text="회원가입시 입력했던 E-mail을 입력해 주세요"/>
+
     <EditText
         android:id="@+id/emailtext"
         android:layout_width="300dp"
@@ -42,4 +49,5 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:text="전송"/>
+
 </LinearLayout>

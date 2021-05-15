@@ -37,7 +37,5 @@ public class ContentsActivity extends AppCompatActivity {
         nickNameText.setText(postList.get(position).getNickName());
         dateText.setText(postList.get(position).getCreatedAt().toString());
         contentsText.setText(postList.get(position).getContents());
-
-
     }
 }

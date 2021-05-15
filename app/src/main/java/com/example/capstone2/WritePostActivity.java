@@ -1,13 +1,11 @@
 package com.example.capstone2;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,9 +30,7 @@ public class WritePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wrtie_post);
-
         Button checkBtn = findViewById(R.id.checkbtn);
-
         checkBtn.setOnClickListener(onClickListener);
 
     }
@@ -53,20 +49,20 @@ public class WritePostActivity extends AppCompatActivity {
     };
 
 
-    public void profileUpdate() {
+    public void profileUpdate() { //작성한 글에 계정 닉네임과 작성한 시간을 writeInfo 객체로 생성 후 uploader메소드로 넘겨주는 메소드
         final String title = ((EditText) findViewById(R.id.titleEditText)).getText().toString();
         final String contents = ((EditText) findViewById(R.id.contentsEditText)).getText().toString();
 
-        if (title.length() > 0 && contents.length() > 0) {
+        if (title.length() > 0 && contents.length() > 0) { //제목이나 내용에 아무런 내용이 없다면 업로드 되지 않게 하는  if문
             user = FirebaseAuth.getInstance().getCurrentUser();
-            WriteInfo wrtieInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date());
-            uploader(wrtieInfo);
+            WriteInfo writeInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date());
+            uploader(writeInfo);
 
         }
 
     }
 
-    private void uploader(WriteInfo writeInfo) {
+    private void uploader(WriteInfo writeInfo) { //서버 db에 작성한 내용을 업로드하는 메소드
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("post")
                 .add(writeInfo)
@@ -75,7 +71,7 @@ public class WritePostActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(WritePostActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                        startsignup(loginAfter.class);
+                        startsignup(BorderActivity.class);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

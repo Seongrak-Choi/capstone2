@@ -1,20 +1,14 @@
 package com.example.capstone2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,16 +24,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class loginAfter extends AppCompatActivity {
+import static com.example.capstone2.MainActivity.libraryList;
 
-    TextView nickText;
+public class BorderActivity extends AppCompatActivity {
+
+    TextView libraryName;
     Button addBtn;
+    int libraryListPosition;
+
     SwipeRefreshLayout mSwipeRefreshLayout;
     final ArrayList<PostInfo> postList = new ArrayList<>();
     RecyclerView recyclerView;
     PostAdapter adapter=new PostAdapter(postList);
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "loginAfter";
@@ -47,28 +44,23 @@ public class loginAfter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_after);
+        setContentView(R.layout.activity_boarder);
 
+        Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
+        libraryListPosition = (int)intent.getSerializableExtra("position");
 
-        nickText = findViewById(R.id.nicktext);
+        libraryName = findViewById(R.id.titleText);
         addBtn = findViewById(R.id.addbtn);
         mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
         recyclerView = findViewById(R.id.recycler1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(loginAfter.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(BorderActivity.this));
 
-
-
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            nickText.setText(name + "님 환영합니다.");
-        }
-
+        libraryName.setText(libraryList.get(libraryListPosition).getLibraryName()+" 게시판");
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(loginAfter.this, WritePostActivity.class);
+                Intent intent = new Intent(BorderActivity.this, WritePostActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,7 +87,7 @@ public class loginAfter extends AppCompatActivity {
 
                                 adapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
                                     @Override
-                                    public void onItemClick(View v, int position) {
+                                    public void onItemClick(View v, int position) { //게시글이 눌렸을 때 ContentsActivity로 이동할 수 있게 리스너 장착
                                         startsignup(ContentsActivity.class, postList, position);
                                     }
                                 });
@@ -109,7 +101,7 @@ public class loginAfter extends AppCompatActivity {
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh() { //게시판을 당겼을 때 새로고침 되는 부분
                 db.collection("post")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -123,8 +115,6 @@ public class loginAfter extends AppCompatActivity {
                                                 document.getData().get("contents").toString(),
                                                 document.getData().get("nickName").toString(),
                                                 new Date(document.getDate("createdAt").getTime())));
-
-                                        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
 
                                         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
                                         adapter.setPostAdapter(postList);
@@ -150,23 +140,8 @@ public class loginAfter extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
-        Intent intent = new Intent(loginAfter.this, MainActivity.class);
-        startActivity(intent);
-    }
 
-
-    private void send() { // 고객이 입력한 email주소가 firebase Authentication에 존재 하는지 확인하고 패스워드 변경을 진행하는 메소드
-        String uid = user.getUid();
-        String name = user.getDisplayName();
-        String email = user.getEmail();
-        Toast.makeText(loginAfter.this, name + "/" + email + "/" + uid,
-                Toast.LENGTH_SHORT).show();
-    }
-
-
-    private void startsignup(Class c, ArrayList<PostInfo> postList, int position) {  //회원 가입 화면으로 이동하는 함수
+    private void startsignup(Class c, ArrayList<PostInfo> postList, int position) {  //다른 엑티비티 화면으로 이동하는 함수
         Intent intent = new Intent(this, c);
         intent.putExtra("PostInfo", postList);
         intent.putExtra("position", position);

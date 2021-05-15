@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
     <TextView
+        android:id="@+id/librarytitle"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
@@ -41,6 +42,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_gobooksearch"
             android:layout_width="130dp"
             android:layout_height="70dp"
             android:background="#0040FF"
@@ -82,6 +84,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_goboard"
             android:layout_width="130dp"
             android:layout_height="70dp"
             android:background="#0040FF"

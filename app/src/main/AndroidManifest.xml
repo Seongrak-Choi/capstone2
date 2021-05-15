@@ -15,9 +15,16 @@
         android:theme="@style/AppTheme">
        <activity android:name=".signup"></activity>
         <activity android:name=".forgot_pw"></activity>
-        <activity android:name=".loginAfter"></activity>
+        <activity android:name=".BorderActivity"></activity>
         <activity android:name=".WritePostActivity"></activity>
         <activity android:name=".ContentsActivity"></activity>
+        <activity android:name=".BookSearchActivity"></activity>
+        <activity android:name=".LibraryContentsActivity"></activity>
+        <activity android:name=".LibrarySearchActivity"></activity>
+
+
+
+
 
 
 

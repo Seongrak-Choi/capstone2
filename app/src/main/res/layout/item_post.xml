@@ -3,17 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginBottom="1dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    android:background="@drawable/border"
+    android:layout_marginBottom="5dp"
+    >
 
     <TextView
         android:id="@+id/textView"
-        android:padding="5dp"
         android:gravity=""
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="3dp"
         android:adjustViewBounds="true"
-        android:text="title"/>
+        android:text="title"
+        android:textSize="20dp"
+        android:textColor="#000000"
 
+        />
+    <TextView
+        android:id="@+id/nick"
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:text="닉네임" />
+
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:text="시간"
+        android:gravity="center"
+        />
 </RelativeLayout>

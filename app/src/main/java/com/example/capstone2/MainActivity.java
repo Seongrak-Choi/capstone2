@@ -2,6 +2,7 @@ package com.example.capstone2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
+
 public class MainActivity extends AppCompatActivity {
+
+    static ArrayList<LibraryInfo> libraryList = new ArrayList<>();
     Button btn_login;
     Button btn_signupgo;
     Button btn_forgot_pw;
@@ -26,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        libraryList.add(new LibraryInfo("서울도서관",111314));
+        libraryList.add(new LibraryInfo("고양시립대화도서관",141139));
+        libraryList.add(new LibraryInfo("고양시립덕이도서관",141398));
+        libraryList.add(new LibraryInfo("고양시립마두도서관",141055));
+        libraryList.add(new LibraryInfo("고양시립백석도서관",141073));
 
         btn_login = findViewById(R.id.btn_Login);
         idtext = findViewById(R.id.idText);
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(MainActivity.this, "로그인 성공",
                                         Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, loginAfter.class);
+                                Intent intent = new Intent(MainActivity.this, LibrarySearchActivity.class);
                                 startActivity(intent);
                             } else {
                                 // 로그인 실패할 시 수행될 작업
@@ -94,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
-        finish();
+        ActivityCompat.finishAffinity(this);
+        System.exit(0);
     }
 
     private void startsignup() {  //회원 가입 화면으로 이동하는 함수

@@ -93,6 +93,11 @@ public class LibrarySearchActivity extends AppCompatActivity {
         });
 
     }
+    public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }
 

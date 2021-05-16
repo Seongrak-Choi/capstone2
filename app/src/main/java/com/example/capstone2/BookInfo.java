@@ -5,9 +5,11 @@ import java.util.Date;
 public class BookInfo {
     private String name = "";
     private String author = "";
-    private Boolean bookCount = false;
     private String imgLink = "";
     private String isbn13 = "";
+    public String loanAvailable;
+    private String hasBook="";
+    private String publisher="";
 
 //    public BookInfo(String name, String author, String imgLink, String isbn13){
 //        this.name=name;
@@ -17,9 +19,6 @@ public class BookInfo {
 //    }
 
 
-    public Boolean getBookCount() {
-        return bookCount;
-    }
 
     public String getAuthor() {
         return author;
@@ -36,13 +35,28 @@ public class BookInfo {
     public String getIsbn13() {
         return isbn13;
     }
+    public String getLoanAvailable() {
+        return loanAvailable;
+    }
+
+    public String getHasBook() {
+        return hasBook;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setLoanAvailable(String loanAvailable) {
+        this.loanAvailable = loanAvailable;
+    }
+
+    public void setHasBook(String hasBook) {
+        this.hasBook = hasBook;
+    }
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public void setBookCount(Boolean bookCount) {
-        this.bookCount = bookCount;
     }
 
     public void setImgLink(String imgLink) {
@@ -56,4 +70,9 @@ public class BookInfo {
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 }
+

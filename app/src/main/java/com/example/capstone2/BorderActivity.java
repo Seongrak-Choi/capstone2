@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -61,12 +62,13 @@ public class BorderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BorderActivity.this, WritePostActivity.class);
+                intent.putExtra("position",libraryListPosition);
                 startActivity(intent);
             }
         });
 
 
-        db.collection("post")
+        db.collection(libraryList.get(libraryListPosition).getLibraryName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -102,7 +104,7 @@ public class BorderActivity extends AppCompatActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() { //게시판을 당겼을 때 새로고침 되는 부분
-                db.collection("post")
+                db.collection(libraryList.get(libraryListPosition).getLibraryName())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -138,6 +140,12 @@ public class BorderActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
+        Intent intent = new Intent(this, LibraryContentsActivity.class);
+        intent.putExtra("position", libraryListPosition);
+        startActivity(intent);
     }
 
 

@@ -54,6 +54,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/btn_seat"
             android:layout_width="130dp"
             android:layout_height="70dp"
             android:background="#0040FF"
@@ -107,7 +108,7 @@
             android:layout_width="130dp"
             android:layout_height="70dp"
             android:background="#0040FF"
-            android:text="게임"
+            android:text="인기대출 도서"
             android:gravity="center"
             android:layout_margin="10dp"
             android:textColor="#ffffff"

@@ -20,11 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
+import static com.example.capstone2.MainActivity.libraryList;
+
 
 public class WritePostActivity extends AppCompatActivity {
 
     final static String TAG = "WritePostActivity";
     private FirebaseUser user;
+    int libraryListPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class WritePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wrtie_post);
         Button checkBtn = findViewById(R.id.checkbtn);
         checkBtn.setOnClickListener(onClickListener);
+
+        Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
+        libraryListPosition = (int)intent.getSerializableExtra("position");
 
     }
 
@@ -57,14 +63,13 @@ public class WritePostActivity extends AppCompatActivity {
             user = FirebaseAuth.getInstance().getCurrentUser();
             WriteInfo writeInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date());
             uploader(writeInfo);
-
         }
 
     }
 
     private void uploader(WriteInfo writeInfo) { //서버 db에 작성한 내용을 업로드하는 메소드
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("post")
+        db.collection(libraryList.get(libraryListPosition).getLibraryName())
                 .add(writeInfo)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -86,6 +91,7 @@ public class WritePostActivity extends AppCompatActivity {
 
     private void startsignup(Class c) {  //원하는 activity로 이동하는 함수
         Intent intent = new Intent(this, c);
-        startActivityForResult(intent,0);
+        intent.putExtra("position",libraryListPosition);
+        startActivity(intent);
     }
 }

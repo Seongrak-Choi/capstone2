@@ -4,15 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/border"
+    android:layout_marginTop="10dp"
     >
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="70dp"
+        android:id="@+id/bookimage"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
         android:adjustViewBounds="true"
-        android:background="#5C3A3A"
+        android:background="#FFFFFF"
         />
     <LinearLayout
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">

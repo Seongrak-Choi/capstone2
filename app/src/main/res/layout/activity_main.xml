@@ -59,6 +59,7 @@
         android:textSize="18sp"/>
 
     <Button
+        android:id="@+id/btnnologin"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

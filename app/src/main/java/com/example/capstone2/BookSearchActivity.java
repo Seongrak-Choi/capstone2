@@ -91,7 +91,7 @@ public class BookSearchActivity extends AppCompatActivity {
         String location = URLEncoder.encode(str);//한글의 경우 인식이 안되기에 utf-8 방식으로 encoding     //지역 검색 위한 변수
         String queryUrl = "https://www.nl.go.kr/NL/search/openApi/search.do?key="
                 + key
-                + "&pageSize=3&pageNum=1&kwd=" + location;
+                + "&pageSize=50&pageNum=1&kwd=" + location;
 
         try {
             URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.

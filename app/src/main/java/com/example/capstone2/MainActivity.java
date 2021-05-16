@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<LibraryInfo> libraryList = new ArrayList<>();
     Button btn_login;
     Button btn_signupgo;
+    Button btnNoLogin;
     Button btn_forgot_pw;
     EditText idtext;
     EditText passwdtext;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         libraryList.add(new LibraryInfo("고양시립백석도서관",141073));
 
         btn_login = findViewById(R.id.btn_Login);
+        btnNoLogin=findViewById(R.id.btnnologin);
         idtext = findViewById(R.id.idText);
         passwdtext = findViewById(R.id.passwdText);
         mAuth = FirebaseAuth.getInstance();
@@ -58,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 checksign();
-                Log.e("클릭", "클릭");
+            }
+        });
+
+        btnNoLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LibrarySearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -113,6 +121,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, signup.class);
         startActivity(intent);
     }
-
 
 }

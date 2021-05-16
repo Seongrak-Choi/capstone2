@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="완료"/>
-
     </LinearLayout>
 
     <EditText
@@ -41,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:lines="10"
+        android:lines="30"
         android:hint="내용을 입력하세요"
         android:textSize="15dp"/>
 

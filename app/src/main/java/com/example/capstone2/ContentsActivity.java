@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ContentsActivity extends AppCompatActivity {
@@ -35,7 +36,9 @@ public class ContentsActivity extends AppCompatActivity {
         int position = intent.getExtras().getInt("position");
         titleText.setText(postList.get(position).getTitle());
         nickNameText.setText(postList.get(position).getNickName());
-        dateText.setText(postList.get(position).getCreatedAt().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String date=sdf.format(postList.get(position).getCreatedAt());
+        dateText.setText(date);
         contentsText.setText(postList.get(position).getContents());
     }
 }

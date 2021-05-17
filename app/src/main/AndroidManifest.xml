@@ -23,6 +23,8 @@
         <activity android:name=".LibraryContentsActivity"></activity>
         <activity android:name=".LibrarySearchActivity"></activity>
         <activity android:name=".SeatActivity"></activity>
+        <activity android:name=".LibraryInformationActivity"></activity>
+        <activity android:name=".MapActivity"></activity>
 
 
         <activity android:name=".MainActivity">
@@ -32,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="s5hfqmvp1o"/>
     </application>
 
 </manifest>

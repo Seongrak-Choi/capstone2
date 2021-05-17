@@ -33,6 +33,7 @@
             android:id="@+id/librarysearchedittext"
             android:layout_width="250dp"
             android:singleLine="true"
+            android:hint="도서관을 검색하세요"
             android:layout_height="wrap_content" />
 
         <Button

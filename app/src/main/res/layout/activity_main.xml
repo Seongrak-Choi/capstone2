@@ -9,7 +9,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:gravity="center"
         android:background="#00BFFF"
         android:text="도서관 관리 시스템"
@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:textSize="45dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="100dp"/>
 
     <EditText
         android:id="@+id/idText"
@@ -51,8 +51,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:background="#0040FF"
-        android:textColor="#ffffff"
+        android:background="@drawable/btn_round"
+        android:textColor="#818283"
         android:text="로그인"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
@@ -63,8 +63,8 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#0040FF"
-        android:textColor="#ffffff"
+        android:background="@drawable/btn_round"
+        android:textColor="#818283"
         android:layout_marginTop="20dip"
         android:text="비회원 이용"
         android:textStyle="bold"
@@ -84,10 +84,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00ff0000"
+            android:layout_marginLeft="30dp"
             android:text="회원가입"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <View
+            android:background="#6B6C6C"
+            android:layout_width="2dp"
+            android:layout_gravity="center"
+            android:layout_height="20dp"/>
 
         <Button
             android:id="@+id/btn_forgot_pw"

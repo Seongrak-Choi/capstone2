@@ -8,8 +8,9 @@ public class BookInfo {
     private String imgLink = "";
     private String isbn13 = "";
     public String loanAvailable;
-    private String hasBook="";
+    private String hasBook=null;
     private String publisher="";
+    int check=0;
 
 //    public BookInfo(String name, String author, String imgLink, String isbn13){
 //        this.name=name;

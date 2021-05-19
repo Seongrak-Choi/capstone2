@@ -7,9 +7,8 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/renoir09" />
+        android:layout_height="270dp"
+        android:src="@drawable/library" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
         android:layout_height="250dp"
         android:layout_below="@+id/s1"
         android:layout_marginTop="30dp"
-        android:background="#ECECEC"
+        android:background="#F6F5F5"
         android:orientation="vertical">
 
         <ListView

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="100dp"
         android:background="#00BFFF"
         android:orientation="vertical">
 
@@ -23,6 +23,9 @@
         android:textColor="#ffffff"
         android:textSize="45sp"/>
 
+
+    </LinearLayout>
+
     <EditText
         android:layout_width="350dp"
         android:layout_height="240dp"
@@ -30,10 +33,9 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:textAlignment="center"
+        android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:singleLine="true"/>
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,11 +47,11 @@
             android:id="@+id/btn_gobooksearch"
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:text="도서 검색"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -57,11 +59,11 @@
             android:id="@+id/btn_seat"
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
             android:text="열람실 정보"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -77,11 +79,11 @@
             android:id="@+id/btn_useinformation"
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
             android:text="이용 안내"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#ffffff"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -89,11 +91,11 @@
             android:id="@+id/btn_goboard"
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
             android:text="게시판"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -108,23 +110,23 @@
         <Button
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
             android:text="인기대출 도서"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#ffffff"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
             android:layout_width="130dp"
             android:layout_height="70dp"
-            android:background="#0040FF"
             android:text="음악 및 영상"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:textColor="#ffffff"
             android:textSize="20sp"
+            android:background="@drawable/btn_round"
+            android:textColor="#676767"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -42,12 +42,11 @@ public class BookSearchActivity extends AppCompatActivity {
     EditText isbnSearchedit;
     Button btnSearch;
     int libraryListPosition;
-    int libraryCode;
+    String libraryCode;
     ArrayList<BookInfo> bookList;
     RecyclerView recyclerView;
     ProgressDialog customProgressDialog;
 
-    String key = "5f6c04a67fd10d16003dabc8f8419c2065f6695db0e69fd2e550c2527d44c487";
     String naruKey = "2c5f97e13c77c0c0b69a5d8d8b2777c61edafe30ce2c477f2b36956897d5e798";
 
     @Override
@@ -74,60 +73,62 @@ public class BookSearchActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.isbnSearchButton:
-                    customProgressDialog.show();
-                    new Thread(new Runnable() {
+                    if (isbnSearchedit.getText().toString().length() > 0) {
+                        customProgressDialog.show();  //버튼을 누름과 동시에 로딩중이라는 화면을 표시
+                        new Thread(new Runnable() {
 
-                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                        @Override
-                        public void run() {
-                            bookList=isbnParser();
-                            for(int i=0;i<bookList.size();i++){
-                                xmlParser(bookList.get(i).getIsbn13(),i);
-                            }
-
-                            for(int i= bookList.size()-1; i>=0; i--) {
-
-                                if(bookList.get(i).getHasBook().equals("N")) {
-                                    bookList.remove(i);
+                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void run() {
+                                bookList = isbnParser(); //책의 정보를 담는 ArrayList<BookInfo> bookList 전역변수로 선언 되어져 있음.
+                                // json-simple 라이브러리를 이용해  네이버 devlopment api json을 파싱 한 후. 검색결과로 나온 책 정보중 책의 isbn을
+                                // BookInfo book객체에 삽입하고, isbn만 들어있는 book객체를 ArrayList<>로 만들어 return 하여 bookList에 삽입
+                                for (int i = 0; i < bookList.size(); i++) {
+                                    xmlParser(bookList.get(i).getIsbn13(), i); //isbn을 가지고 있는 bookList의 크기만큼 for문을 돌면서
+                                    //해당하는 isbn에 맞는 책의 제목과 이미지사진,저자,해당 도서관의 대출가능 여부를 xmlPullParser을 사용해 구한다.
+                                    //bookList는 전역변수이기에 xmlParser을 호출할 때 i값과 isbn값을 넘겨줘 바로 bookList.get(i)에 set을 이용해
+                                    //책 정보들을 삽입한다. 직접 bookList에 참조하기에 return은 없다.
                                 }
-                                else {
-                                }
-                            }
-                            runOnUiThread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    // TODO Auto-generated method stub
-                                    if (bookList.size() != 0) {
-                                        BookAdapter adapter = new BookAdapter(bookList);
-                                        adapter.setBookAdapter(bookList);
-                                        recyclerView.setAdapter(adapter);
-                                        customProgressDialog.dismiss();
-                                    } else {
-                                        customProgressDialog.dismiss();
-                                        Toast.makeText(BookSearchActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                                for (int i = bookList.size() - 1; i >= 0; i--) { //검색결과가 10개라면 10개 만큼 for문을 뒤에서 부터 돈다.
+                                    if (bookList.get(i).getHasBook().equals("N")) {  //BookInfo객체중 hasBook이 N이면 해당 도서관에
+                                        bookList.remove(i); //해당 isbn으로 된 책이 없다는 얘기 이므로, N이면 해당 BookInfo객체를 삭제한다.
                                     }
                                 }
-                            });
-                        }
-                    }).start();
+                                runOnUiThread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        // TODO Auto-generated method stub
+                                        if (bookList.size() != 0) {
+                                            BookAdapter adapter = new BookAdapter(bookList); //파싱을 통해 만들어진 AarrayList
+                                            adapter.setBookAdapter(bookList);  // adapter에 삽입한다.
+                                            recyclerView.setAdapter(adapter); //리사이클 뷰에 삽입
+                                            customProgressDialog.dismiss(); //리사이클뷰에 출력이 되면 로딩중 화면 제거
+                                        } else {
+                                            customProgressDialog.dismiss(); //만약 bookList의 사이즈가0이면 검색결과가 없음을 출력한다.
+                                            Toast.makeText(BookSearchActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        }).start();
+                    }else{
+                        Toast.makeText(BookSearchActivity.this,"검색어를 입력하세요.",Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
-
         }
     };
 
 
-    private void xmlParser(String isbn,int i) {  /// 책의 isbn과 책제목 지은이 정보를 가져오는 파싱
-        BookInfo book = null;
-        String str = isbnSearchedit.getText().toString();//EditText에 작성된 Text얻어오기
+    private void xmlParser(String isbn, int i) {  /// 책의 isbn과 책제목 지은이 정보를 가져오는 파싱
         String queryUrl2 = "http://data4library.kr/api/itemSrch?type=ALL&libCode=" ///////////////받아온 isbn으로 정보나루로 파싱 시장
                 + libraryList.get(libraryListPosition).getLibraryCode()
                 + "&authKey=" + naruKey //정보나루 인증키 값
                 + "&isbn13=" + isbn  //검색한 책 isbn입력
                 + "&pageNo=1&page\n";
 
-        int check = 0; // doc하나만 컨트롤 하기 위ㅎ한 변수
+        int check = 0; // doc하나만 컨트롤 하기 위한 변수, 하나의 isbn으로 여러개의 책의 결과가 나오는 것을 방지하기 위함.
         try {
             URL url2 = new URL(queryUrl2);//문자열로 된 요청 url2을 URL 객체로 생성.
             InputStream is2 = url2.openStream(); //url2위치로 입력스트림 연결
@@ -164,7 +165,7 @@ public class BookSearchActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                if (check != 1) { //endTag가 doc여서 하나의 정보를 가져오면  while문을 빠져 나가기 위한 방법
+                if (check != 1) { //endTag가 doc여서 하나의 isbn에 한권의 정보만 가져오면  while문을 빠져 나가기 위한 방법
                     eventType2 = xpp2.next();
                 } else {
                     eventType2 = XmlPullParser.END_DOCUMENT;
@@ -236,7 +237,7 @@ public class BookSearchActivity extends AppCompatActivity {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/book?query=" + text;
+        String apiURL = "https://openapi.naver.com/v1/search/book?&display=20&query=" + text;
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -280,7 +281,7 @@ public class BookSearchActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private static ArrayList<BookInfo> readBody(InputStream body){
+    private static ArrayList<BookInfo> readBody(InputStream body) {
         ArrayList<BookInfo> bookList2 = new ArrayList<>();
         InputStreamReader streamReader = new InputStreamReader(body);
         JSONParser parser = new JSONParser();
@@ -301,16 +302,12 @@ public class BookSearchActivity extends AppCompatActivity {
             for (int i = 0; i < items.size(); i++) {
                 BookInfo book = new BookInfo();
                 JSONObject row = (JSONObject) items.get(i);
-                isbn = (String)row.get("isbn");
-                isbn13=isbn.split(" ");
+                isbn = (String) row.get("isbn");
+                isbn13 = isbn.split(" ");
                 book.setIsbn13(isbn13[1]);
                 bookList2.add(book);
+                System.out.println(book.getIsbn13());
             }
-
-//            isbnArr=isbn.split(" ");
-//            for(int j=1;j<isbnArr.length;j+=2) {
-//                System.out.println(isbnArr[j]);
-//            }
             return bookList2;
         } catch (IOException | ParseException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);

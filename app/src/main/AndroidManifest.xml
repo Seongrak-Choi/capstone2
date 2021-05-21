@@ -21,10 +21,13 @@
         <activity android:name=".ContentsActivity"></activity>
         <activity android:name=".BookSearchActivity"></activity>
         <activity android:name=".LibraryContentsActivity"></activity>
-        <activity android:name=".LibrarySearchActivity"></activity>
+        <activity android:name=".LibrarySearchActivity"
+             android:windowSoftInputMode="adjustNothing"></activity>
         <activity android:name=".SeatActivity"></activity>
         <activity android:name=".LibraryInformationActivity"></activity>
         <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MyInfoActivity"></activity>
+
 
 
         <activity android:name=".MainActivity">

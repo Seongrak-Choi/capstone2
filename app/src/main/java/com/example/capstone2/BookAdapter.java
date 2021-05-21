@@ -69,7 +69,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         holder.textView2.setText(mData.get(position).getName());
         holder.author.setText("저자 :" + mData.get(position).getAuthor());
         holder.publisher.setText("출판사 :" + mData.get(position).getPublisher());
-        holder.bookCount.setText("대출 여부 :" + mData.get(position).getLoanAvailable());
+        holder.bookCount.setText("대출 가능 :" + mData.get(position).getLoanAvailable());
         Thread mThread = new Thread() {  //ImageView에 사진을 넣기 위한 스레드 코드
             public void run() {
                 try {

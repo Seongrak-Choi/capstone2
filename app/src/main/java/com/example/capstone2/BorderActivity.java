@@ -22,10 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import static com.example.capstone2.MainActivity.libraryList;
+
+class Ascending implements Comparator<PostInfo>{  // 게시판 목록을 시간별로 정렬하는 코드
+    public int compare(PostInfo a, PostInfo b)
+    {
+        return b.getCreatedAt().compareTo(a.getCreatedAt());
+    }
+}
 
 public class BorderActivity extends AppCompatActivity {
 
@@ -75,7 +86,6 @@ public class BorderActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 postList.add(new PostInfo(document.getData().get("title").toString(),
                                         document.getData().get("contents").toString(),
                                         document.getData().get("nickName").toString(),
@@ -84,6 +94,7 @@ public class BorderActivity extends AppCompatActivity {
                                 // 리사이클러뷰에 LinearLayoutManager 객체 지정.
 
                                 // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+                                Collections.sort(postList,new Ascending());
                                 adapter.setPostAdapter(postList);
                                 recyclerView.setAdapter(adapter);
 
@@ -112,13 +123,13 @@ public class BorderActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     postList.clear();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Log.d(TAG, document.getId() + " => " + document.getData());
                                         postList.add(new PostInfo(document.getData().get("title").toString(),
                                                 document.getData().get("contents").toString(),
                                                 document.getData().get("nickName").toString(),
                                                 new Date(document.getDate("createdAt").getTime())));
 
                                         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+                                        Collections.sort(postList,new Ascending());
                                         adapter.setPostAdapter(postList);
                                         recyclerView.setAdapter(adapter);
 

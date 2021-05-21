@@ -5,10 +5,16 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:src="@drawable/library" />
+        android:orientation="vertical"
+        android:layout_height="0dip"
+        android:layout_weight="3">
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="270dp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +28,8 @@
     <LinearLayout
         android:id="@+id/s1"
         android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         android:layout_marginTop="20dp"
         android:background="@drawable/edge"
         android:gravity="center"
@@ -45,7 +52,8 @@
     <LinearLayout
         android:id="@+id/libScroll"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0dip"
+        android:layout_weight="5"
         android:layout_below="@+id/s1"
         android:layout_marginTop="30dp"
         android:background="#F6F5F5"
@@ -62,40 +70,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         android:layout_below="@id/libScroll"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
         <Button
-            android:id="@+id/bt1"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_myinfo"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="#00ff0000"
             android:text="내 정보"
+            android:background="@drawable/btn_round"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/bt2"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#00ff0000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/btn_round"
             android:text="즐겨찾기"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/bt3"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_logout"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#00ff0000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/btn_round"
             android:text="로그아웃"
             android:textColor="#000000"
             android:textSize="20sp"

@@ -3,38 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    android:background="@drawable/border"
     android:layout_marginBottom="5dp"
-    >
-
+    android:background="@drawable/border"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    app:cardCornerRadius="10dp">
     <TextView
         android:id="@+id/textView"
-        android:gravity=""
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="3dp"
         android:adjustViewBounds="true"
+        android:gravity=""
         android:text="title"
-        android:textSize="20dp"
         android:textColor="#000000"
+        android:textSize="20dp"
 
         />
-    <TextView
-        android:id="@+id/nick"
-        android:layout_marginLeft="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:text="닉네임" />
 
-    <TextView
-        android:id="@+id/timeView"
-        android:layout_width="100dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:text="시간"
-        android:gravity="center"
-        />
+        android:layout_below="@id/textView"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nick"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:layout_below="@+id/textView"
+            android:layout_marginLeft="5dp"
+            android:singleLine="true"
+            android:text="내용" />
+
+        <TextView
+            android:id="@+id/timeView"
+            android:layout_width="0dip"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentRight="@+id/nick"
+            android:gravity="center"
+            android:text="시간" />
+    </LinearLayout>
 </RelativeLayout>

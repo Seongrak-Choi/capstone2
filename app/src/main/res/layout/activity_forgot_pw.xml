@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
-        android:background="#0040FF"
-        android:textColor="#ffffff"
+        android:background="@drawable/btn_round"
+        android:textColor="#4E4B4B"
         android:textStyle="bold"
         android:textSize="18sp"
         android:text="전송"/>

@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/bookimage"
+        android:id="@+id/bookimage3"
         android:layout_width="80dp"
         android:layout_height="100dp"
         android:adjustViewBounds="true"
@@ -20,25 +20,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:textSize="18sp"
         android:text="title"
+        android:textSize="18sp"
         android:textColor="#000000"/>
         <TextView
-            android:id="@+id/authorView"
+            android:id="@+id/authorView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="author"/>
         <TextView
-            android:id="@+id/publisherView"
+            android:id="@+id/publisherView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="publisher"/>
         <TextView
-            android:id="@+id/bookCountView"
+            android:id="@+id/bookCountView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="bookCount"/>

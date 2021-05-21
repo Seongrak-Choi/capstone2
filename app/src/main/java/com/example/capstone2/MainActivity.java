@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,26 +39,30 @@ public class MainActivity extends AppCompatActivity {
     EditText passwdtext;
     private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        libraryList.add(new LibraryInfo("서울도서관",111314,"N"));
-        libraryList.add(new LibraryInfo("고양시립대화도서관",141139,"https://dpds10.goyanglib.or.kr:44443/dh/"));
-        libraryList.add(new LibraryInfo("고양시립덕이도서관",141398,"https://dpds.goyanglib.or.kr/SeatMate3_di/SeatMate.php"));
-        libraryList.add(new LibraryInfo("고양시립마두도서관",141055,"N"));
-        libraryList.add(new LibraryInfo("고양시립백석도서관",141073,"https://dpds.goyanglib.or.kr/seatmate4_bs/seatmate.php"));
-        libraryList.add(new LibraryInfo("강서구립가양도서관",111453,"http://222.237.254.8:8800/seatmate/SeatMate.php"));
-        libraryList.add(new LibraryInfo("광진정보도서관 ",111036,"http://125.140.75.102:8800/seatmate/seatmate.php"));
-        libraryList.add(new LibraryInfo("고척도서관 ",111008,"http://gclib-seat.sen.go.kr/domian5.php"));
-        libraryList.add(new LibraryInfo("도봉문화정보도서관",111041,"http://61.102.210.254/seatmate/seatmate.php"));
-        libraryList.add(new LibraryInfo("동대문도서관 ",111012,"http://218.48.162.173/domian5.php"));
-        libraryList.add(new LibraryInfo("동작도서관 ",111013,"http://djlib-seat.sen.go.kr/domian5.php"));
-        libraryList.add(new LibraryInfo("성동구립도서관 ",111035,"http://220.72.218.152:8800/seatmate/SeatMate.php"));
-
-
+        libraryList.clear();
+        db.collection("library")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                libraryList.add(new LibraryInfo(document.getData().get("libraryName").toString(),
+                                        document.getData().get("libraryCode").toString(),
+                                        document.getData().get("librarySeatUrl").toString()));
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         btn_login = findViewById(R.id.btn_Login);
         btnNoLogin=findViewById(R.id.btnnologin);

@@ -28,6 +28,8 @@ public class WritePostActivity extends AppCompatActivity {
     final static String TAG = "WritePostActivity";
     private FirebaseUser user;
     int libraryListPosition;
+    String title;
+    String contents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +38,37 @@ public class WritePostActivity extends AppCompatActivity {
         Button checkBtn = findViewById(R.id.checkbtn);
         checkBtn.setOnClickListener(onClickListener);
 
+
         Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
         libraryListPosition = (int)intent.getSerializableExtra("position");
-
     }
-
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            title = ((EditText) findViewById(R.id.titleEditText)).getText().toString();
+            contents = ((EditText) findViewById(R.id.contentsEditText)).getText().toString();
             switch (v.getId()) {
                 case R.id.checkbtn:
-                    profileUpdate();
-                    finish();
+                    if (title.length() > 0) { //제목이나 내용에 아무런 내용이 없다면 업로드 되지 않게 하는  if문
+                       if(contents.length()>0){
+                           profileUpdate();
+                           finish();
+                       }else{
+                           Toast.makeText(WritePostActivity.this,"내용을 입력해 주세요",Toast.LENGTH_LONG).show();
+                       }
+                    }else{
+                        Toast.makeText(WritePostActivity.this,"제목을 입력해 주세요",Toast.LENGTH_LONG).show();
+                    }
                     break;
             }
         }
     };
 
-
     public void profileUpdate() { //작성한 글에 계정 닉네임과 작성한 시간을 writeInfo 객체로 생성 후 uploader메소드로 넘겨주는 메소드
-        final String title = ((EditText) findViewById(R.id.titleEditText)).getText().toString();
-        final String contents = ((EditText) findViewById(R.id.contentsEditText)).getText().toString();
-
-        if (title.length() > 0 && contents.length() > 0) { //제목이나 내용에 아무런 내용이 없다면 업로드 되지 않게 하는  if문
             user = FirebaseAuth.getInstance().getCurrentUser();
             WriteInfo writeInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date());
             uploader(writeInfo);
-        }
-
     }
 
     private void uploader(WriteInfo writeInfo) { //서버 db에 작성한 내용을 업로드하는 메소드

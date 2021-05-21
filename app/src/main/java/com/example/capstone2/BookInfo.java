@@ -5,7 +5,7 @@ import java.util.Date;
 public class BookInfo {
     private String name = "";
     private String author = "";
-    private String imgLink = "";
+    private String imgLink = null;
     private String isbn13 = "";
     public String loanAvailable;
     private String hasBook=null;

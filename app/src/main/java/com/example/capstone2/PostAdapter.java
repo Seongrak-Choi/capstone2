@@ -77,7 +77,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(PostAdapter.ViewHolder holder, int position) {   //이 부분이 item_post.xml이랑 관련이 있으니 이쪽에서 setText해주면 될 듯
         String text = (mData.get(position).getTitle());
-        String nick = (mData.get(position).getNickName());
+        String nick = (mData.get(position).getContents());
         holder.textView1.setText(text);
         holder.nickView.setText(nick);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");

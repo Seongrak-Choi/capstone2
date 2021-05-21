@@ -9,7 +9,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:gravity="center"
         android:text="회원가입"
         android:background="#00BFFF"
@@ -17,8 +17,7 @@
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_marginBottom="70dp"
-        android:textSize="38sp"/>
-
+        android:textSize="35sp"/>
 
 
     <EditText
@@ -26,7 +25,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="E-mail"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:padding="10dp"
         android:background="@drawable/round"
@@ -74,8 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
-        android:background="#0040FF"
-        android:textColor="#ffffff"
+        android:background="@drawable/btn_round"
+        android:textColor="#858484"
         android:textStyle="bold"
         android:textSize="18sp"
         android:text="가입하기"/>

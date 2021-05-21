@@ -1,10 +1,16 @@
 package com.example.capstone2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,12 +49,12 @@ public class BorderActivity extends AppCompatActivity {
     TextView libraryName;
     Button addBtn;
     int libraryListPosition;
-
+    private EditText edtComment;
     SwipeRefreshLayout mSwipeRefreshLayout;
     final ArrayList<PostInfo> postList = new ArrayList<>();
     RecyclerView recyclerView;
     PostAdapter adapter=new PostAdapter(postList);
-
+    private LinearLayout rl;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "loginAfter";
@@ -61,6 +67,7 @@ public class BorderActivity extends AppCompatActivity {
         Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
         libraryListPosition = (int)intent.getSerializableExtra("position");
 
+        edtComment=findViewById(R.id.edt_comment);
         libraryName = findViewById(R.id.titleText);
         addBtn = findViewById(R.id.addbtn);
         mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
@@ -153,6 +160,21 @@ public class BorderActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+
     public void onBackPressed() { //뒤로가기 버튼이 눌릴 때 전 엑티비로 이동하는 코드
         Intent intent = new Intent(this, LibraryContentsActivity.class);
         intent.putExtra("position", libraryListPosition);
@@ -166,4 +188,5 @@ public class BorderActivity extends AppCompatActivity {
         intent.putExtra("position", position);
         startActivity(intent);
     }
+
 }

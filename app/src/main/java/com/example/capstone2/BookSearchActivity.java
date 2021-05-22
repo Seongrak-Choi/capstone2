@@ -120,7 +120,6 @@ public class BookSearchActivity extends AppCompatActivity {
         }
     };
 
-
     private void xmlParser(String isbn, int i) {  /// 책의 isbn과 책제목 지은이 정보를 가져오는 파싱
         String queryUrl2 = "http://data4library.kr/api/itemSrch?type=ALL&libCode=" ///////////////받아온 isbn으로 정보나루로 파싱 시장
                 + libraryList.get(libraryListPosition).getLibraryCode()
@@ -150,10 +149,12 @@ public class BookSearchActivity extends AppCompatActivity {
                         } else if (tag2.equals("authors")) {
                             xpp2.next();
                             bookList.get(i).setAuthor(xpp2.getText());
-                        } else if (tag2.equals("bookImageURL")) {
+                        }
+                        else if (tag2.equals("bookImageURL")) {
                             xpp2.next();
                             bookList.get(i).setImgLink(xpp2.getText());
-                        } else if (tag2.equals("publisher")) {
+                        }
+                        else if (tag2.equals("publisher")) {
                             xpp2.next();
                             bookList.get(i).setPublisher(xpp2.getText());
                         }
@@ -254,7 +255,6 @@ public class BookSearchActivity extends AppCompatActivity {
             for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
-
 
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출

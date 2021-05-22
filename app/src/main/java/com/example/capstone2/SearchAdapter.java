@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class SearchAdapter extends BaseAdapter {
+public class SearchAdapter extends BaseAdapter{
 
     private Context context;
     private List<String> list;
@@ -28,7 +30,8 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+
+        return list.get(i);
     }
 
     @Override

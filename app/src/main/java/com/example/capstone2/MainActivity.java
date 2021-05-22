@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 // 로그인 실패할 시 수행될 작업
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                System.out.println("오류가: "+task.getException());
+                                if(task.getException().equals("Authentication failed.")){
+                                    Toast.makeText(MainActivity.this,"아이디가 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                                }
                                 Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }

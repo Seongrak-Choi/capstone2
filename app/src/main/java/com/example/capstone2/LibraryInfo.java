@@ -2,7 +2,9 @@ package com.example.capstone2;
 
 import android.widget.LinearLayout;
 
-public class LibraryInfo {
+import java.io.Serializable;
+
+public class LibraryInfo implements Serializable {
     private String libraryName;
     private String libraryCode;
     private String seatUrl="N";

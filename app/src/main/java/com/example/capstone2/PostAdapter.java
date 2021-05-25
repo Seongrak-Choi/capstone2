@@ -55,7 +55,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
     }
 
-
     // 생성자에서 데이터 리스트 객체를 전달받음.
     PostAdapter(ArrayList<PostInfo> list) {
         mData = list;
@@ -80,7 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         String nick = (mData.get(position).getContents());
         holder.textView1.setText(text);
         holder.nickView.setText(nick);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd hh:mm");
         String date=sdf.format(mData.get(position).getCreatedAt());
         holder.time.setText(date);
     }

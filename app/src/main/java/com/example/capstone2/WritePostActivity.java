@@ -67,7 +67,7 @@ public class WritePostActivity extends AppCompatActivity {
 
     public void profileUpdate() { //작성한 글에 계정 닉네임과 작성한 시간을 writeInfo 객체로 생성 후 uploader메소드로 넘겨주는 메소드
             user = FirebaseAuth.getInstance().getCurrentUser();
-            WriteInfo writeInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date());
+            WriteInfo writeInfo = new WriteInfo(title, contents, user.getDisplayName(), new Date(),user.getUid());
             uploader(writeInfo);
     }
 

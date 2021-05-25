@@ -46,7 +46,6 @@ public class LibrarySearchActivity extends AppCompatActivity {
     private FirebaseAuth authUI;
     private FirebaseUser user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

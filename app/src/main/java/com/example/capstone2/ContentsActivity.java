@@ -3,6 +3,8 @@ package com.example.capstone2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,6 +68,12 @@ public class ContentsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.postmenu,menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +119,9 @@ public class ContentsActivity extends AppCompatActivity {
                     }
                 });
 
+
+
+
         btn_CommentWrite.setOnClickListener(new View.OnClickListener() {   ///작성한 댓글을 db에 올리는 작업
             @Override
             public void onClick(View view) {
@@ -128,7 +139,8 @@ public class ContentsActivity extends AppCompatActivity {
                             public void onSuccess(DocumentReference documentReference){
                                 edt_Comment.setText("");
                                 commentList.clear();
-                                db.collection(libraryList.get(libraryListPosition).getLibraryName())
+
+                                db.collection(libraryList.get(libraryListPosition).getLibraryName()) ///댓글을 작성하면서 서버에서 댓글을 다시 불러와서 리사이클뷰에 출력해 준다.
                                         .document(post.getDocumentValue())
                                         .collection("comment")
                                         .get()

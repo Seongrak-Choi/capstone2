@@ -36,18 +36,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.capstone2.LibraryContentsActivity.libraryListPosition;
 import static com.example.capstone2.MainActivity.libraryList;
 
 public class BookSearchActivity extends AppCompatActivity {
     EditText isbnSearchedit;
     Button btnSearch;
-    static int libraryListPosition;
     String libraryCode;
     ArrayList<BookInfo> bookList;
     RecyclerView recyclerView;
     ProgressDialog customProgressDialog;
 
-    static String naruKey = "2c5f97e13c77c0c0b69a5d8d8b2777c61edafe30ce2c477f2b36956897d5e798";
+    static String naruKey = "4a67398b6b7486bf80f9af4997d90ea048ea346f41952a595ff2581ca7368c20";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,7 @@ public class BookSearchActivity extends AppCompatActivity {
 
     public static BookInfo xmlParser(String isbn) {  /// 책의 isbn과 책제목 지은이 정보를 가져오는 파싱
         BookInfo book = new BookInfo();
+        System.out.println("xmlparser실행되기는 하냐??");
         String queryUrl2 = "http://data4library.kr/api/itemSrch?type=ALL&libCode=" ///////////////받아온 isbn으로 정보나루로 파싱 시장
                 + libraryList.get(libraryListPosition).getLibraryCode()
                 + "&authKey=" + naruKey //정보나루 인증키 값
@@ -188,8 +189,8 @@ public class BookSearchActivity extends AppCompatActivity {
                         if (tag3.equals("result")) {// 첫번째 검색결과
                         } else if (tag3.equals("hasBook")) {
                             xpp3.next();
-                            System.out.println(xpp3.getText());
-                            book.setHasBook(xpp3.getText());
+                                System.out.println("getHasbook의 값은? :" + xpp3.getText());
+                                book.setHasBook(xpp3.getText());
                         } else if (tag3.equals("loanAvailable")) {
                             xpp3.next();
                             book.setLoanAvailable(xpp3.getText());
@@ -292,9 +293,10 @@ public class BookSearchActivity extends AppCompatActivity {
                 JSONObject row = (JSONObject) items.get(i);
                 isbn = (String) row.get("isbn");
                 isbn13 = isbn.split(" ");
+                System.out.println("isbn확인 : "+isbn13[1]);
                 book.setIsbn13(isbn13[1]);
                 book=xmlParser(isbn13[1]);
-                if(book.getHasBook().equals("N")){
+                if(book.getHasBook().equals("N")||book.getHasBook()==null){
                     continue;
                 }else{
                     bookList2.add(book);

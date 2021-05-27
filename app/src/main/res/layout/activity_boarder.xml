@@ -10,14 +10,14 @@
     <TextView
         android:id="@+id/titleText"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="30dp"
         android:paddingLeft="10dp"
-        android:background="#00BFFF"
+        android:background="#80CFEA"
         android:gravity="center"
         android:text="게시판"
         android:textColor="#ffffff"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
 
@@ -52,7 +52,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="#00BFFF"
+        android:background="#D3EBF3"
         android:text="글쓰기" />
 
 </RelativeLayout>

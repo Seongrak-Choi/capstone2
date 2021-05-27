@@ -8,6 +8,8 @@ public class CommentInfo implements Comparable {
     private String contents;
     private String nickName;
     private Date createdAt;
+    private String postDocumentValue;
+    private String title;
 
     @Override
     public int compareTo(Object o) {
@@ -22,11 +24,22 @@ public class CommentInfo implements Comparable {
             return 0;
     }
 
+    public CommentInfo(String title,String contents, String nickName,String uID,String documentValue,String postDocumentValue, Date createdAt){
+        this.contents=contents;
+        this.nickName=nickName;
+        this.createdAt=createdAt;
+        this.uID=uID;
+        this.documentValue=documentValue;
+        this.postDocumentValue=postDocumentValue;
+        this.title=title;
+    }
+
     public CommentInfo(String contents, String nickName,String uID, Date createdAt){
         this.contents=contents;
         this.nickName=nickName;
         this.createdAt=createdAt;
         this.uID=uID;
+        this.documentValue=documentValue;
     }
 
     public String getDocumentValue() {
@@ -67,5 +80,13 @@ public class CommentInfo implements Comparable {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getPostDocumentValue() {
+        return postDocumentValue;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

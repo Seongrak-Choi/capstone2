@@ -67,6 +67,9 @@ public class MyInfoActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
+                                            Intent intent = getIntent();
+                                            finish();
+                                            startActivity(intent);
                                             Toast.makeText(MyInfoActivity.this, "닉네임이 변경되었습니다.", Toast.LENGTH_SHORT).show();
                                         }
                                     }

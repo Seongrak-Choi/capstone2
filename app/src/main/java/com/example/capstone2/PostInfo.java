@@ -27,12 +27,13 @@ public class PostInfo implements Serializable,Comparable{
             return 0;
     }
 
-    public PostInfo(String title, String contents, String nickName,String documentValue, Date createdAt){
+    public PostInfo(String title, String contents, String nickName,String documentValue,String uID, Date createdAt){
         this.title=title;
         this.contents=contents;
         this.nickName=nickName;
         this.createdAt=createdAt;
         this.documentValue=documentValue;
+        this.uID=uID;
     }
 
     public PostInfo(){

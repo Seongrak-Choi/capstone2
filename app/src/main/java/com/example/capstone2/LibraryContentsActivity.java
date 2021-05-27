@@ -34,11 +34,11 @@ public class LibraryContentsActivity extends AppCompatActivity {
     Button btn_Seat;
     Button btn_useInformation;
     TextView libraryTitle;
-    int libraryListPosition;
+    static int libraryListPosition;
     ArrayList<BookInfo> bookList;
     RecyclerView recyclerView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String naruKey = "2c5f97e13c77c0c0b69a5d8d8b2777c61edafe30ce2c477f2b36956897d5e798";
+    String naruKey = "4a67398b6b7486bf80f9af4997d90ea048ea346f41952a595ff2581ca7368c20";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class LibraryContentsActivity extends AppCompatActivity {
         Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
         libraryListPosition = (int) intent.getSerializableExtra("position");
         libraryTitle.setText(libraryList.get(libraryListPosition).getLibraryName());
+        System.out.println("도서관 코드: "+libraryList.get(libraryListPosition).getLibraryCode());
 
         new Thread(new Runnable() {  //파싱해서 도서관 대출인기 10위를 파싱하기 위한 스레드 생성
 
@@ -131,7 +132,7 @@ public class LibraryContentsActivity extends AppCompatActivity {
                 +"&libCode="
                 +libraryList.get(libraryListPosition).getLibraryCode()
                 +"&pageSize=10";
-
+        System.out.println("url은? "+queryUrl);
         int check = 0; // doc하나만 컨트롤 하기 위한 변수, 하나의 isbn으로 여러개의 책의 결과가 나오는 것을 방지하기 위함.
         try {
             URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.

@@ -1,65 +1,107 @@
 package com.example.capstone2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class SearchAdapter extends BaseAdapter{
+public class SearchAdapter extends BaseAdapter {
 
-    private Context context;
-    private List<String> list;
-    private LayoutInflater inflate;
-    private ViewHolder viewHolder;
-
-    public SearchAdapter(List<String> list, Context context){
-        this.list = list;
+    // Declare Variables
+    Context context;
+    LayoutInflater inflater;
+    private List<String> potionList = null;
+    private ArrayList<String> arrayList;
+    public SearchAdapter(Context context, List<String> potionList) {
         this.context = context;
-        this.inflate = LayoutInflater.from(context);
+        this.potionList = potionList;
+        inflater = LayoutInflater.from(context);
+        this.arrayList = new ArrayList<String>();
+        this.arrayList.addAll(potionList);
     }
+
+    public class ViewHolder {
+        TextView tv_name;
+    }
+
     @Override
     public int getCount() {
-        return list.size();
+        return potionList.size();
     }
 
     @Override
-    public Object getItem(int i) {
-
-        return list.get(i);
+    public String getItem(int position) {
+        return potionList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return list.size();
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
-        if(convertView == null){
-            convertView = inflate.inflate(R.layout.row_listview,null);
+    public View getView(final int position, View view, ViewGroup parent) {
+        final ViewHolder holder;
+        final String potion = potionList.get(position);
 
-            viewHolder = new ViewHolder();
-            viewHolder.label = (TextView) convertView.findViewById(R.id.label);
 
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        if (view == null) {
+            holder = new ViewHolder();
+            view = inflater.inflate(R.layout.row_listview, null);
+            // Locate the TextViews in listview_item.xml
+            holder.tv_name = (TextView) view.findViewById(R.id.label);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
         }
+        // Set the results into TextViews
+        holder.tv_name.setText(potion);
 
-        // 리스트에 있는 데이터를 리스트뷰 셀에 뿌린다.
-        viewHolder.label.setText(list.get(position));
+        // Listen for ListView Item Click
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                int index=0;
+                for(int i=0;i<arrayList.size();i++){
+                    if(arrayList.get(i).equals(potionList.get(position))){
+                        index=i;
+                    }
+                }
+                Intent intent = new Intent(context, LibraryContentsActivity.class);
+                intent.putExtra("position", index);
+                context.startActivity(intent);
+            }
+        });
 
-        return convertView;
+        return view;
     }
 
-    class ViewHolder{
-        public TextView label;
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        potionList.clear();
+        if (charText.length() == 0) {
+            potionList.addAll(arrayList);
+        } else {
+            for (String potion : arrayList) {
+                String name = potion;
+                if (name.toLowerCase().contains(charText)) {
+                    potionList.add(potion);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
 }
+

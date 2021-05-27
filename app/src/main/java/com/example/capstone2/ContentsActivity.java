@@ -1,5 +1,6 @@
 package com.example.capstone2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,10 +9,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.capstone2.LibraryContentsActivity.libraryListPosition;
 import static com.example.capstone2.MainActivity.libraryList;
 
 public class ContentsActivity extends AppCompatActivity {
@@ -52,27 +56,19 @@ public class ContentsActivity extends AppCompatActivity {
     Button btn_CommentWrite;
     final String TAG = "tag";
 
-    private FirebaseUser user;
+    private FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
 
     PostInfo post = new PostInfo();
     RecyclerView recyclerView;
     ArrayList<CommentInfo> commentList = new ArrayList<>();
     CommentAdapter adapter=new CommentAdapter(commentList);
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    Button btn_delete;
     class Ascending implements Comparator<CommentInfo> {  // 게시판 목록을 시간별로 정렬하는 코드
         public int compare(CommentInfo b, CommentInfo a)
         {
             return b.getCreatedAt().compareTo(a.getCreatedAt());
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.postmenu,menu);
-        return true;
     }
 
     @Override
@@ -85,10 +81,10 @@ public class ContentsActivity extends AppCompatActivity {
         dateText = findViewById(R.id.contents_xml_dateText);
         contentsText = findViewById(R.id.contents_xml_contentsText);
         edt_Comment = findViewById(R.id.edt_comment);
+        btn_delete = findViewById(R.id.delete);
 
         Intent intent = getIntent();
         post = (PostInfo) intent.getSerializableExtra("PostInfo");
-        int position = intent.getExtras().getInt("position");
         final int libraryListPosition = intent.getExtras().getInt("libraryListPosition");
         titleText.setText(post.getTitle());
         nickNameText.setText(post.getNickName());
@@ -99,6 +95,10 @@ public class ContentsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler4);
         recyclerView.setLayoutManager(new LinearLayoutManager(ContentsActivity.this));
 
+        if(user.getUid().equals(post.getuID())){
+            btn_delete.setVisibility(View.VISIBLE);
+        }
+
         db.collection(libraryList.get(libraryListPosition).getLibraryName())
                 .document(post.getDocumentValue())
                 .collection("comment")
@@ -107,13 +107,16 @@ public class ContentsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                commentList.add(new CommentInfo(document.getData().get("contents").toString(),
+                                commentList.add(new CommentInfo(post.getTitle(),
+                                        document.getData().get("contents").toString(),
                                         document.getData().get("nickName").toString(),
                                         document.getData().get("uID").toString(),
+                                        document.getId(),
+                                        post.getDocumentValue(),
                                         new Date(document.getDate("createdAt").getTime())));
                             }
                             Collections.sort(commentList,new Ascending());
-                            adapter.setCommentAdapter(commentList);
+                            adapter.setCommentAdapter(commentList,ContentsActivity.this);
                             recyclerView.setAdapter(adapter);
                         }
                     }
@@ -122,10 +125,19 @@ public class ContentsActivity extends AppCompatActivity {
 
 
 
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+
+
+
+
         btn_CommentWrite.setOnClickListener(new View.OnClickListener() {   ///작성한 댓글을 db에 올리는 작업
             @Override
             public void onClick(View view) {
-                user = FirebaseAuth.getInstance().getCurrentUser();
                 String comments = edt_Comment.getText().toString();
                 String nickName = user.getDisplayName();
                 String uID = user.getUid();
@@ -148,13 +160,16 @@ public class ContentsActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        commentList.add(new CommentInfo(document.getData().get("contents").toString(),
+                                                        commentList.add(new CommentInfo(post.getTitle(),
+                                                                document.getData().get("contents").toString(),
                                                                 document.getData().get("nickName").toString(),
                                                                 document.getData().get("uID").toString(),
+                                                                document.getId(),
+                                                                post.getDocumentValue(),
                                                                 new Date(document.getDate("createdAt").getTime())));
                                                     }
                                                     Collections.sort(commentList,new Ascending());
-                                                    adapter.setCommentAdapter(commentList);
+                                                    adapter.setCommentAdapter(commentList,ContentsActivity.this);
                                                     recyclerView.setAdapter(adapter);
                                                 }
                                             }
@@ -163,7 +178,37 @@ public class ContentsActivity extends AppCompatActivity {
                         });
             }
         });
-
+    }
+    void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ContentsActivity.this);
+        builder.setTitle("게시글을 삭제 하시겠습니까?");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                db.collection(libraryList.get(libraryListPosition).getLibraryName())
+                        .document(post.getDocumentValue())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ContentsActivity.this,"삭제 되었습니다.",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ContentsActivity.this,BorderActivity.class);
+                                intent.putExtra("position", libraryListPosition);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+            }
+        });
+        builder.setNegativeButton("아니오",null);
+        builder.show();
     }
 }
 

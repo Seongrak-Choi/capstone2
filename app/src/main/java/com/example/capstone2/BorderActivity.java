@@ -72,7 +72,7 @@ public class BorderActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler1);
         recyclerView.setLayoutManager(new LinearLayoutManager(BorderActivity.this));
 
-        libraryName.setText(libraryList.get(libraryListPosition).getLibraryName()+" 게시판");
+        libraryName.setText(libraryList.get(libraryListPosition).getLibraryName()+" 자유 게시판");
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +95,7 @@ public class BorderActivity extends AppCompatActivity {
                                         document.getData().get("contents").toString(),
                                         document.getData().get("nickName").toString(),
                                         document.getId(),
+                                        document.getData().get("uID").toString(),
                                         new Date(document.getDate("createdAt").getTime())));
 
                                 // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -133,7 +134,8 @@ public class BorderActivity extends AppCompatActivity {
                                         postList.add(new PostInfo(document.getData().get("title").toString(),
                                                 document.getData().get("contents").toString(),
                                                 document.getData().get("nickName").toString(),
-                                                document.getId().toString(),
+                                                document.getId(),
+                                                document.getData().get("uID").toString(),
                                                 new Date(document.getDate("createdAt").getTime())));
 
                                         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.

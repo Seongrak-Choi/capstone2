@@ -107,7 +107,7 @@ public class LibraryInformationActivity extends AppCompatActivity {
     Button btnCall;
     Button btnHomepage;
     ArrayList<Information> infoList;
-    String naruKey = "2c5f97e13c77c0c0b69a5d8d8b2777c61edafe30ce2c477f2b36956897d5e798";
+    String naruKey = "4a67398b6b7486bf80f9af4997d90ea048ea346f41952a595ff2581ca7368c20";
     int libraryListPosition;
 
     @Override

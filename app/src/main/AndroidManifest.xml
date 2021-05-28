@@ -25,7 +25,6 @@
              android:windowSoftInputMode="adjustNothing"></activity>
         <activity android:name=".SeatActivity"></activity>
         <activity android:name=".LibraryInformationActivity"></activity>
-        <activity android:name=".MapActivity"></activity>
         <activity android:name=".MyInfoActivity"></activity>
 
 

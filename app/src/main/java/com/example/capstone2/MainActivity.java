@@ -1,11 +1,13 @@
 package com.example.capstone2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -119,7 +121,11 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 // 로그인 실패할 시 수행될 작업
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.",
+                                System.out.println("오류가: "+task.getException()+"여기까지");
+                                if(task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.")){
+                                    Toast.makeText(MainActivity.this,"아이디가 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                                }
+                                Toast.makeText(MainActivity.this, task.getException().toString(),
                                         Toast.LENGTH_SHORT).show();
                             }
                         }

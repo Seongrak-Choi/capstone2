@@ -1,6 +1,7 @@
 package com.example.capstone2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PostInfo implements Serializable,Comparable{
@@ -8,7 +9,11 @@ public class PostInfo implements Serializable,Comparable{
     private String contents;
     private String nickName;
     private Date createdAt;
+    private String documentValue;
+    private String uID;
+    private ArrayList<CommentInfo> comment = new ArrayList<>(
 
+    );
     @Override
     public int compareTo(Object o) {
         PostInfo post = (PostInfo)o;
@@ -22,11 +27,17 @@ public class PostInfo implements Serializable,Comparable{
             return 0;
     }
 
-    public PostInfo(String title, String contents, String nickName, Date createdAt){
+    public PostInfo(String title, String contents, String nickName,String documentValue,String uID, Date createdAt){
         this.title=title;
         this.contents=contents;
         this.nickName=nickName;
         this.createdAt=createdAt;
+        this.documentValue=documentValue;
+        this.uID=uID;
+    }
+
+    public PostInfo(){
+
     }
 
 
@@ -38,5 +49,24 @@ public class PostInfo implements Serializable,Comparable{
     public void setNickName(String nickName){this.nickName=nickName;}
     public Date getCreatedAt(){return this.createdAt;}
     public void setCreatedAt(String createdAt){this.nickName=createdAt;}
+    public String getDocumentValue() {
+        return documentValue;
+    }
+    public void setDocumentValue(String documentValue) {
+        this.documentValue = documentValue;
+    }
+    public String getuID() {
+        return uID;
+    }
+    public void setuID(String uID) {
+        this.uID = uID;
+    }
 
+    public ArrayList<CommentInfo> getComment() {
+        return comment;
+    }
+    public void setComment(ArrayList<CommentInfo> comment) {
+        this.comment = comment;
+    }
 }
+

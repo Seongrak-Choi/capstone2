@@ -49,7 +49,6 @@ public class BorderActivity extends AppCompatActivity {
     TextView libraryName;
     Button addBtn;
     int libraryListPosition;
-    private EditText edtComment;
     SwipeRefreshLayout mSwipeRefreshLayout;
     final ArrayList<PostInfo> postList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -67,14 +66,13 @@ public class BorderActivity extends AppCompatActivity {
         Intent intent = getIntent();  //리스트뷰에서 선택된 아이템을 position을 받아와서 해당하는 librarayList의 libraryName을 가져온다.
         libraryListPosition = (int)intent.getSerializableExtra("position");
 
-        edtComment=findViewById(R.id.edt_comment);
         libraryName = findViewById(R.id.titleText);
         addBtn = findViewById(R.id.addbtn);
         mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
         recyclerView = findViewById(R.id.recycler1);
         recyclerView.setLayoutManager(new LinearLayoutManager(BorderActivity.this));
 
-        libraryName.setText(libraryList.get(libraryListPosition).getLibraryName()+" 게시판");
+        libraryName.setText(libraryList.get(libraryListPosition).getLibraryName()+" 자유 게시판");
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,23 +94,26 @@ public class BorderActivity extends AppCompatActivity {
                                 postList.add(new PostInfo(document.getData().get("title").toString(),
                                         document.getData().get("contents").toString(),
                                         document.getData().get("nickName").toString(),
+                                        document.getId(),
+                                        document.getData().get("uID").toString(),
                                         new Date(document.getDate("createdAt").getTime())));
 
                                 // 리사이클러뷰에 LinearLayoutManager 객체 지정.
 
                                 // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-                                Collections.sort(postList,new Ascending());
-                                adapter.setPostAdapter(postList);
-                                recyclerView.setAdapter(adapter);
-
-                                adapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View v, int position) { //게시글이 눌렸을 때 ContentsActivity로 이동할 수 있게 리스너 장착
-                                        startsignup(ContentsActivity.class, postList, position);
-                                    }
-                                });
 
                             }
+
+                            adapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(View v, int position) { //게시글이 눌렸을 때 ContentsActivity로 이동할 수 있게 리스너 장착
+                                    startsignup(ContentsActivity.class, postList.get(position), position,libraryListPosition);
+                                }
+                            });
+
+                            Collections.sort(postList,new Ascending());
+                            adapter.setPostAdapter(postList);
+                            recyclerView.setAdapter(adapter);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -133,21 +134,23 @@ public class BorderActivity extends AppCompatActivity {
                                         postList.add(new PostInfo(document.getData().get("title").toString(),
                                                 document.getData().get("contents").toString(),
                                                 document.getData().get("nickName").toString(),
+                                                document.getId(),
+                                                document.getData().get("uID").toString(),
                                                 new Date(document.getDate("createdAt").getTime())));
 
                                         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-                                        Collections.sort(postList,new Ascending());
-                                        adapter.setPostAdapter(postList);
-                                        recyclerView.setAdapter(adapter);
-
-                                        adapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View v, int position) {
-                                                startsignup(ContentsActivity.class, postList, position);
-                                            }
-                                        });
 
                                     }
+                                    adapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(View v, int position) {
+                                            startsignup(ContentsActivity.class, postList.get(position), position,libraryListPosition);
+                                        }
+                                    });
+
+                                    Collections.sort(postList,new Ascending());
+                                    adapter.setPostAdapter(postList);
+                                    recyclerView.setAdapter(adapter);
                                 } else {
                                     Log.d(TAG, "Error getting documents: ", task.getException());
                                 }
@@ -161,7 +164,7 @@ public class BorderActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) { // 키패드가 올라왔을 때 다른 화면을 터치하면 키보드가 사라지는 코드인데 실제로 작동하지 않음;;; 수정 필요
         View view = getCurrentFocus();
         if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
             int scrcoords[] = new int[2];
@@ -182,10 +185,11 @@ public class BorderActivity extends AppCompatActivity {
     }
 
 
-    private void startsignup(Class c, ArrayList<PostInfo> postList, int position) {  //다른 엑티비티 화면으로 이동하는 함수
+    private void startsignup(Class c, PostInfo post, int position , int libraryListPosition) {  //다른 엑티비티 화면으로 이동하는 함수
         Intent intent = new Intent(this, c);
-        intent.putExtra("PostInfo", postList);
+        intent.putExtra("PostInfo", post);
         intent.putExtra("position", position);
+        intent.putExtra("libraryListPosition", libraryListPosition);
         startActivity(intent);
     }
 

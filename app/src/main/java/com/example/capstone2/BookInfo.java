@@ -5,11 +5,12 @@ import java.util.Date;
 public class BookInfo {
     private String name = "";
     private String author = "";
-    private String imgLink = null;
+    private String imgLink = "";
     private String isbn13 = "";
     public String loanAvailable;
-    private String hasBook=null;
+    private String hasBook="N";
     private String publisher="";
+    private String link="";
     int check=0;
 
 //    public BookInfo(String name, String author, String imgLink, String isbn13){
@@ -74,6 +75,14 @@ public class BookInfo {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
 

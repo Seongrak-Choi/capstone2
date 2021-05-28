@@ -2,17 +2,24 @@ package com.example.capstone2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,9 +30,10 @@ import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
-
+    private FirebaseUser user;
     private ArrayList<BookInfo> mData = null;
     Bitmap bitmap;
+    private Context context;
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -33,7 +41,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         TextView author;
         TextView publisher;
         TextView bookCount;
+        Button btn_searchBook;
         ImageView bookImage;
+
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -42,6 +52,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             publisher = itemView.findViewById(R.id.publisherView);
             bookCount = itemView.findViewById(R.id.bookCountView);
             bookImage = itemView.findViewById(R.id.bookimage);
+            btn_searchBook = itemView.findViewById(R.id.btn_searchbook);
         }
     }
 
@@ -69,7 +80,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         holder.textView2.setText(mData.get(position).getName());
         holder.author.setText("저자 :" + mData.get(position).getAuthor());
         holder.publisher.setText("출판사 :" + mData.get(position).getPublisher());
-        holder.bookCount.setText("대출 가능 :" + mData.get(position).getLoanAvailable());
+        holder.btn_searchBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mData.get(position).getLink()));
+                context.startActivity(myIntent);
+            }
+        });
+
+        if (mData.get(position).getLoanAvailable().equals("N")) {
+            holder.bookCount.setTextColor(Color.RED);
+            holder.bookCount.setText("대출 중");
+        } else {
+            holder.bookCount.setTextColor(Color.BLUE);
+            holder.bookCount.setText("대출 가능");
+        }
         Thread mThread = new Thread() {  //ImageView에 사진을 넣기 위한 스레드 코드
             public void run() {
                 try {
@@ -103,7 +128,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         return mData.size();
     }
 
-    public void setBookAdapter(ArrayList<BookInfo> list) { //새로고침을 위해 mData를 재설정 하는 메소드
+    public void setBookAdapter(ArrayList<BookInfo> list,Context context) { //새로고침을 위해 mData를 재설정 하는 메소드
         this.mData = list;
+        this.context=context;
     }
 }

@@ -227,14 +227,12 @@ public class BookSearchActivity extends AppCompatActivity {
         String link = null;
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
             StringBuilder responseBody = new StringBuilder();
-
             String line;
             while ((line = lineReader.readLine()) != null) {
                 responseBody.append(line);
             }
             JSONObject obj = (JSONObject) parser.parse(responseBody.toString());
             JSONArray items = (JSONArray) obj.get("items");
-
             for (int i = 0; i < items.size(); i++) {
                 BookInfo book = new BookInfo();
                 JSONObject row = (JSONObject) items.get(i);
@@ -243,6 +241,8 @@ public class BookSearchActivity extends AppCompatActivity {
                 title=title.replace("</b>","");
                 image = (String) row.get("image");
                 author = (String) row.get("author");
+                author =author.replace("<b>","");
+                author =author.replace("</b>","");
                 publisher = (String) row.get("publisher");
                 link = (String) row.get("link");
                 isbn = (String) row.get("isbn");

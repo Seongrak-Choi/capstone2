@@ -44,6 +44,7 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:visibility="invisible"
                     android:text="삭제"
                     android:textColor="#F34A4A"
                     android:background="@drawable/btn_round_red"

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         btn_login = findViewById(R.id.btn_Login);
-        btnNoLogin=findViewById(R.id.btnnologin);
+        btnNoLogin = findViewById(R.id.btnnologin);
         idtext = findViewById(R.id.idText);
         passwdtext = findViewById(R.id.passwdText);
         mAuth = FirebaseAuth.getInstance();
@@ -121,17 +121,17 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 // 로그인 실패할 시 수행될 작업
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                System.out.println("오류가: "+task.getException()+"여기까지");
-                                if(task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.")){
-                                    Toast.makeText(MainActivity.this,"아이디가 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                                //System.out.println("오류가: "+task.getException()+"여기까지");
+                                if (task.getException().toString().equals("com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.")) {
+                                    Toast.makeText(MainActivity.this, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, task.getException().toString(),
+                                            Toast.LENGTH_SHORT).show();
                                 }
-                                Toast.makeText(MainActivity.this, task.getException().toString(),
-                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-        }
-        else{
+        } else {
             Toast.makeText(MainActivity.this, "이메일 또는 비밀번호를 입력해 주세요",
                     Toast.LENGTH_SHORT).show();
         }

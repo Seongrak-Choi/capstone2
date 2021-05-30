@@ -10,7 +10,7 @@
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="전국 도서관 알림이"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -26,8 +26,6 @@
         <activity android:name=".SeatActivity"></activity>
         <activity android:name=".LibraryInformationActivity"></activity>
         <activity android:name=".MyInfoActivity"></activity>
-
-
 
         <activity android:name=".MainActivity">
             <intent-filter>

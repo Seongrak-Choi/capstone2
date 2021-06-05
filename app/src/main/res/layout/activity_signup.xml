@@ -19,6 +19,12 @@
         android:layout_marginBottom="70dp"
         android:textSize="30sp"/>
 
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\u00B7  E-mail은 로그인할 때 입력하는 ID입니다.\n\u00B7 E-mail형식으로 작성하셔야 회원가입이 됩니다.\n\u00B7 비밀번호는 6글자 이상 입력해야 합니다.\n\u00B7 닉네임은 게시판에서 사용할 당신의 별명입니다.\n\u00B7 닉네임은 다른 사람과 중복될 수 있습니다."
+        />
 
     <EditText
         android:id="@+id/idText"
@@ -28,7 +34,6 @@
         android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:background="@drawable/round"
         android:singleLine="true"/>
 
     <EditText
@@ -40,7 +45,6 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:background="@drawable/round"
         android:singleLine="true"/>
 
     <EditText
@@ -52,7 +56,6 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:background="@drawable/round"
         android:singleLine="true"/>
     <EditText
         android:id="@+id/nickname"
@@ -63,8 +66,6 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:layout_marginBottom="50dp"
-
-        android:background="@drawable/round"
         android:singleLine="true"/>
 
     <Button

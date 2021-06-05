@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#FF00BFFF"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="bottom|center"
+        android:text="전국 도서관 알림이"
+        android:textSize="30dp"
+        android:textColor="@color/browser_actions_bg_grey"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="20dp"
+        android:gravity="top|center"
+        android:textColor="@color/browser_actions_bg_grey"
+        android:text="전국 도서관의 열람실 현황과\n대출 정보가 내손에"
+       android:textSize="20dp"/>
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:src="@mipmap/ic_launcher"/>
+
+</LinearLayout>

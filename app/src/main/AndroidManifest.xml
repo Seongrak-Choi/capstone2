@@ -26,8 +26,9 @@
         <activity android:name=".SeatActivity"></activity>
         <activity android:name=".LibraryInformationActivity"></activity>
         <activity android:name=".MyInfoActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
